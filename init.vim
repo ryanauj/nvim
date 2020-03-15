@@ -74,6 +74,9 @@ Plug 'SirVer/ultisnips'
 " Vim snippets separated from UtilSnips engine
 Plug 'honza/vim-snippets'
 
+" C# completion and more
+Plug 'omnisharp/omnisharp-vim'
+
 " Prettier - Note: assumes node and yarn|npm installed globally
 " post install (yarn install | npm install) then load plugin only for editing supported files
 Plug 'prettier/vim-prettier', {
@@ -108,7 +111,7 @@ let g:airline_theme='dark'
 
 " UtilSnips
 "
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe. 
+" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
@@ -182,6 +185,9 @@ set previewheight=5
 " Update semantic highlighting on BufEnter and InsertLeave
 let g:OmniSharp_highlight_types = 2
 
+" Start OmniSharp  servier without solution (.sln) file
+let g:OmniSharp_start_without_solution = 1
+
 augroup omnisharp_commands
     autocmd!
 
@@ -231,5 +237,5 @@ nnoremap <Leader>ss :OmniSharpStartServer<CR>
 nnoremap <Leader>sp :OmniSharpStopServer<CR>
 
 " Enable snippet completion
-" let g:OmniSharp_want_snippet=1
+let g:OmniSharp_want_snippet=1
 " -----------------------------------------------------------------------------
