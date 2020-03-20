@@ -52,9 +52,6 @@ Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 " Uses Deoplete for completion
 Plug 'w0rp/ale'
 
-" Track UtilSnips snippets engine
-Plug 'SirVer/ultisnips'
-
 " Vim snippets separated from UtilSnips engine
 Plug 'honza/vim-snippets'
 
@@ -89,16 +86,6 @@ set smarttab  " Autotabs for certain code
 set background=dark
 colorscheme dracula
 let g:airline_theme='dark'
-
-" UtilSnips
-"
-" Trigger configuration. Do not use <tab> if you use https://github.com/Valloric/YouCompleteMe.
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-"
-" If you want :UltiSnipsEdit to split your window.
-let g:UltiSnipsEditSplit="vertical"
 
 " Prettier
 " Allow auto formatting for files without '@format' or '@prettier' tag
