@@ -1,24 +1,3 @@
-" Neovim configuration file
-" See here for general starting info - https://neovim.io/doc/user/starting.html
-" #9 in that document specifies information on standard paths for neovim
-" See 'https://neovim.io/doc/user/eval.html#stdpath() for 'stdpath' info
-
-" VIM-PLUG - https://github.com/junegunn/vim-plug
-
-" Add this section to the vim-plug documentation for Automatic installation in
-" neovim if you get it working.
-
-" See below for an example, as well as why it may be best not to use this:
-" https://github.com/jonhoo/configs/issues/4#issue-510497037
-" which is based off of this:
-" https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
-
-" if empty(glob(stdpath('config') . '/autoload/plug.vim'))
-"   silent !curl -fLo stdpath('config') . '/autoload/plug.vim' --create-dirs
-"       \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-"     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-" endif
-"
 " Specify a directory for plugins
 call plug#begin(stdpath('data') . '/plugged')
 
@@ -61,7 +40,12 @@ else
     Plug 'roxma/nvim-yarp'
     Plug 'roxma/vim-hug-neovim-rpc'
 endif
-let g:deoplete#enable_at_startup = 1
+
+" Rails completion
+Plug 'etordera/deoplete-rails'
+
+" Javascript Tern-based Completion
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 
 " Asynchronous Lint Engine
 " Works with linters and code formatters
@@ -121,18 +105,47 @@ let g:UltiSnipsEditSplit="vertical"
 let g:prettier#autoformat_require_pragma = 0
 
 " Deoplete
-" Use ALE and also some plugin 'foobar' as completion sources for all code.
-call deoplete#custom#option('sources', {
-\    '_': ['ale'],
-\})
+let g:deoplete#enable_at_startup = 1
+if !exists('g:deoplete#omni#input_patterns')
+  let g:deoplete#omni#input_patterns = {}
+endif
+" let g:deoplete#disable_auto_complete = 1
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+" omnifuncs
+augroup omnifuncs
+  autocmd!
+  autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup end
+" tern
+if exists('g:plugs["tern_for_vim"]')
+  let g:tern_show_argument_hints = 'on_hold'
+  let g:tern_show_signature_in_pum = 1
+  autocmd FileType javascript setlocal omnifunc=tern#Complete
+endif
+" deoplete tab-complete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" tern tab complete
+autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
+
+" Use ALE as completion source for all code - Trying to use Tern with Deoplete instead
+" call deoplete#custom#option('sources', {
+" \    '_': ['ale'],
+" \})
 
 " Ale
 " Fixers - Recommended to do this in ftplugin file
 " https://github.com/OmniSharp/omnisharp-vim#example-vimrc
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'javascript': ['prettier'],
-\}
+" let g:ale_fixers = {
+" \   '*': ['remove_trailing_lines', 'trim_whitespace'],
+" \   'javascript': ['prettier'],
+" \}
 
 " Set this variable to 1 to fix files when you save them.
-let g:ale_fix_on_save = 1
+" let g:ale_fix_on_save = 1
+
+" Enable completion
+" let g:ale_completion_enabled = 1
