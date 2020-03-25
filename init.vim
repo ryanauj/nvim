@@ -42,6 +42,7 @@ else
 endif
 
 " Rails completion
+Plug 'fishbullet/deoplete-ruby'
 Plug 'etordera/deoplete-rails'
 
 " Javascript Tern-based Completion
