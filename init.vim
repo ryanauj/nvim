@@ -45,6 +45,21 @@ endif
 Plug 'fishbullet/deoplete-ruby'
 Plug 'etordera/deoplete-rails'
 
+" Add 'end' keyword where applicable
+Plug 'tpope/vim-endwise'
+
+" Emmet html abbreviation expander
+Plug 'mattn/emmet-vim'
+
+" Auto close (X)HTML tags
+Plug 'alvan/vim-closetag'
+
+" HTML5 completion and syntax support
+Plug 'othree/html5.vim'
+
+" Terraform syntax support
+Plug 'hashivim/vim-terraform'
+
 " Javascript Tern-based Completion
 Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
 
@@ -55,6 +70,9 @@ Plug 'w0rp/ale'
 
 " Vim snippets separated from UtilSnips engine
 Plug 'honza/vim-snippets'
+
+" Easy search, substitution, and abbreviation.
+Plug 'tpope/vim-abolish'
 
 " Prettier - Note: assumes node and yarn|npm installed globally
 " post install (yarn install | npm install) then load plugin only for editing supported files
@@ -84,9 +102,12 @@ set smarttab  " Autotabs for certain code
 " Colorscheme - For themes like solarized, make sure that if you are using a
 " terminal, that it's colorschme is using a compatible colorscheme
 " https://github.com/altercation/vim-colors-solarized#important-note-for-terminal-users
-set background=dark
-colorscheme dracula
-let g:airline_theme='dark'
+set background=light
+colorscheme bubblegum-256-light
+let g:airline_theme='light'
+
+" Filenames to auto close tags
+let g:closetag_filenames = '*.html,*.html.erb,*.jsx'
 
 " Prettier
 " Allow auto formatting for files without '@format' or '@prettier' tag
