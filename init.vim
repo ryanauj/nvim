@@ -85,6 +85,10 @@ set tabstop=4    " Show existing tab with 4 spaces width
 set shiftwidth=4 " When indenting with '>', use 4 spaces width
 set expandtab    " On pressing tab, insert 4 spaces
 
+" Show space as ·, tabs as >-, trailing whitespace as ~
+set list
+set listchars=space:·,tab:>-,trail:~,extends:>,precedes:<
+
 " General Settings
 "
 syntax on     " Syntax highlighting
@@ -96,7 +100,6 @@ set smarttab  " Autotabs for certain code
 " Colorscheme - For themes like solarized, make sure that if you are using a
 " terminal, that it's colorschme is using a compatible colorscheme
 " https://github.com/altercation/vim-colors-solarized#important-note-for-terminal-users
-set t_Co=256
 set background=light
 colorscheme papercolor
 let g:airline_theme='papercolor'
