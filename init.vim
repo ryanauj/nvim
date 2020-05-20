@@ -13,7 +13,6 @@ Plug 'flazz/vim-colorschemes'
 
 " Inidividual colorschemes
 Plug 'sainnhe/sonokai'" Git Wrapper
-Plug 'vim-scripts/kate'
 Plug 'zcodes/vim-colors-basic'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'reedes/vim-colors-pencil'
@@ -64,7 +63,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 " Javascript Tern-based Completion
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install -g tern' }
 
 " Javascript tern completion for deoplete
 Plug 'carlitux/deoplete-ternjs'
@@ -105,21 +104,39 @@ let g:airline_theme='papercolor'
 " Filenames to auto close tags
 let g:closetag_filenames = '*.html,*.html.erb,*.jsx'
 
+" Deoplete, OmniFunc, and Tern configuration based off of this post:
+" https://gregjs.com/vim/2016/configuring-the-deoplete-asynchronous-keyword-completion-plugin-with-tern-for-vim/
+
 " Deoplete
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_ignore_case = 1
-let g:deoplete#enable_smart_case = 1
-let g:deoplete#enable_camel_case = 1
-let g:deoplete#enable_refresh_always = 1
-let g:deoplete#max_abbr_width = 0
-let g:deoplete#max_menu_width = 0
-let g:deoplete#omni#input_patterns = get(g:,’deoplete#omni#input_patterns’,{})
+if !exists('g:deoplete#omni#input_patterns')
+  let g:deoplete#omni#input_patterns = {}
+endif
+" let g:deoplete#disable_auto_complete = 1
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" Tern
-let g:tern_request_timeout = 1
-let g:tern_request_timeout = 6000
-let g:tern#command = [“tern”]
-let g:tern#arguments = [“ — persistent”]
+" omnifuncs
+" Need to install other filetype deoplete plugins (I think)
+augroup omnifuncs
+  autocmd!
+  " autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+  " autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  " autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  " autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+augroup end
+" tern
+if exists('g:plugs["tern_for_vim"]')
+  let g:tern_show_argument_hints = 'on_hold'
+  let g:tern_show_signature_in_pum = 1
+  autocmd FileType javascript setlocal omnifunc=tern#Complete
+endif
+
+" deoplete tab-complete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+" tern-tab complete
+autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
 
 " Prettier
 " Allow auto formatting for files (default only those with '@format' or '@prettier' tag)
