@@ -59,6 +59,10 @@ Plug 'pangloss/vim-javascript'
 " Typescript support
 Plug 'leafgarland/typescript-vim'
 
+" Linting support
+" Install eslint
+Plug 'dense-analysis/ale', { 'do': 'npm install -g eslint' }
+
 " Autocompletion
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
@@ -69,9 +73,9 @@ Plug 'ternjs/tern_for_vim', { 'do': 'npm install -g tern' }
 Plug 'carlitux/deoplete-ternjs'
 
 " Prettier - Note: assumes node and yarn|npm installed globally
-" post install (yarn install | npm install) then load plugin only for editing supported files
+" post install eslint plugins globally (yarn install | npm install) then load plugin only for editing supported files
 Plug 'prettier/vim-prettier', {
-\    'do': 'yarn install',
+\    'do': 'npm install -g eslint-plugin-prettier eslint-config-prettier && npm install',
 \    'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html']
 \}
 
@@ -107,6 +111,21 @@ let g:airline_theme='papercolor'
 " Filenames to auto close tags
 let g:closetag_filenames = '*.html,*.html.erb,*.jsx'
 
+" ESLint ALE configuration
+" Based off of this article: https://davidtranscend.com/blog/configure-eslint-prettier-vim/
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'javascript': ['prettier', 'eslint'],
+\   'typescript': ['prettier', 'eslint'],
+\   'css': ['prettier']
+\}
+let g:ale_linter_aliases = {'jsx': 'javascript'}
+let g:ale_sign_error = '✘'
+let g:ale_sign_warning = '⚠'
+highlight ALEErrorSign ctermbg=NONE ctermfg=red
+highlight ALEWarningSign ctermbg=NONE ctermfg=yellow
+let g:ale_fix_on_save = 1
+
 " Deoplete, OmniFunc, and Tern configuration based off of this post:
 " https://gregjs.com/vim/2016/configuring-the-deoplete-asynchronous-keyword-completion-plugin-with-tern-for-vim/
 
@@ -140,10 +159,3 @@ inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " tern-tab complete
 autocmd FileType javascript nnoremap <silent> <buffer> gb :TernDef<CR>
-
-" Prettier
-" Allow auto formatting for files (default only those with '@format' or '@prettier' tag)
-let g:prettier#autoformat = 1
-
-" Allow auto formatting for files without '@format' or '@prettier' tag
-let g:prettier#autoformat_require_pragma = 0
