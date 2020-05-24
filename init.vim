@@ -79,6 +79,10 @@ Plug 'prettier/vim-prettier', {
 \    'for': ['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'yaml', 'html']
 \}
 
+" Requires https://github.com/neovim/python-client
+Plug 'davidhalter/jedi'
+Plug 'deoplete-plugins/deoplete-jedi'
+
 call plug#end()
 
 " Set tabs to four spaces
