@@ -72,9 +72,6 @@ Plug 'ternjs/tern_for_vim', { 'do': 'npm install -g tern' }
 " Javascript tern completion for deoplete
 Plug 'carlitux/deoplete-ternjs'
 
-" Typescript deoplete completion
-Plug 'mhartington/nvim-typescript'
-
 " Prettier - Note: assumes node and yarn|npm installed globally
 " post install eslint plugins globally (yarn install | npm install) then load plugin only for editing supported files
 Plug 'prettier/vim-prettier', {
