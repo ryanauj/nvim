@@ -43,5 +43,9 @@ In neovim, type the following commands (```<CR>``` is enter/return key):
 
 If there are any errors (like treesitter errors) on next run, just scroll through them with ```<CR>```, then exit and reopen.
 
+## Python Packages
+
+In ```Mason```, install `pyright` for the LSP and `black` as the formatter.
+
 # TODOS
 - Run install packer and run packer sync with script on nvim first load, instead of sourcing file and error handling in [Load packages](#load-packages).
