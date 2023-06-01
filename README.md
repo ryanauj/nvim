@@ -26,5 +26,22 @@ Run packer [installation instructions](https://github.com/wbthomason/packer.nvim
 git clone --depth 1 https://github.com/ryanauj/nvim.git ~/.config/nvim
 ```
 
+## Load packages
+
+```sh
+nvim ~/.config/nvim/lua/ryanauj/packer.lua
+```
+
+Scroll past error messages...
+
+In neovim, type the following commands (```<CR>``` is enter/return key):
+
+```vim
+:so<CR>
+:PackerSync<CR>
+```
+
+If there are any errors (like treesitter errors) on next run, just scroll through them with ```<CR>```, then exit and reopen.
+
 # TODOS
-- Run install packer and run packer sync with script on nvim first load
+- Run install packer and run packer sync with script on nvim first load, instead of sourcing file and error handling in [Load packages](#load-packages).
